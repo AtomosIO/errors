@@ -1,7 +1,7 @@
 errors
 =======
 
-[godoc.org/github.com/atomosio/errors]
+http://godoc.org/github.com/AtomosIO/errors
 
 Package errors implements the representation of enhanced error conditions with
 internal and public messages customized to each instance of an error. These
