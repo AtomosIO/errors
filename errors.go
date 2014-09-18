@@ -49,7 +49,9 @@ type genericError struct {
 func (err genericError) Code() int       { return err.code }
 func (err genericError) Private() string { return err.private }
 func (err genericError) Public() string  { return err.public }
-func (err genericError) Error() string   { return err.private }
+
+// Returns the Private string. Used to satisfy the builtin Error interface.
+func (err genericError) Error() string { return err.private }
 
 // Returns a genericError which implements the Error interface with Code set to
 // DefaultCode.
@@ -71,8 +73,8 @@ func NewError(private, public string, code int) Error {
 	}
 }
 
-// New returns an Error with Code set to DefaultCode and Internal and Public set to
-// the given text.
+// New returns an Error with Code set to DefaultCode and Private and Public messages
+// set to the given text.
 //
 // New is used to support code that uses the function signature set forth by the
 // default errors package.
