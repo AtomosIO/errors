@@ -38,6 +38,8 @@ type Error interface {
 	Private() string
 
 	Public() string
+
+	Error() string
 }
 
 type genericError struct {
@@ -55,7 +57,7 @@ func (err genericError) Error() string { return err.private }
 
 // Returns a genericError which implements the Error interface with Code set to
 // DefaultCode.
-func NewErrorDefaultCode(private, public string) Error {
+func NewErrorDefaultCode(private, public string) genericError {
 	return genericError{
 		code:    DefaultCode,
 		private: private,
@@ -65,7 +67,7 @@ func NewErrorDefaultCode(private, public string) Error {
 
 // Returns a genericError which implements the Error interface with Code set to
 // the given value.
-func NewError(private, public string, code int) Error {
+func NewError(private, public string, code int) genericError {
 	return genericError{
 		code:    code,
 		private: private,
@@ -78,6 +80,18 @@ func NewError(private, public string, code int) Error {
 //
 // New is used to support code that uses the function signature set forth by the
 // default errors package.
-func New(text string) Error {
+func New(text string) genericError {
 	return NewErrorDefaultCode(text, text)
+}
+
+func Replicate(err Error, num int) []Error {
+	output := make([]Error, num)
+	for index, _ := range output {
+		output[index] = genericError{
+			private: err.Private(),
+			code:    err.Code(),
+			public:  err.Public(),
+		}
+	}
+	return output
 }
