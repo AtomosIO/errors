@@ -53,7 +53,7 @@ func (err genericError) Private() string { return err.private }
 func (err genericError) Public() string  { return err.public }
 
 // Returns the Private string. Used to satisfy the builtin Error interface.
-func (err genericError) Error() string { return err.private }
+func (err genericError) Error() string { return err.public }
 
 // Returns a genericError which implements the Error interface with Code set to
 // DefaultCode.
