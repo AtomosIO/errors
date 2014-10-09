@@ -23,7 +23,12 @@ This package can be a full replacement for the default errors package.
 */
 package errors
 
+import (
+	"fmt"
+)
+
 var (
+	_           = fmt.Errorf
 	DefaultCode = 0
 )
 
